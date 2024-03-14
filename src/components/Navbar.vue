@@ -1,31 +1,39 @@
 <template>
-    <header class="">
-        <nav class="flex justify-between shadow items-center md:w-[90%] w-screen mx-auto py-6 px-6">
+    <!-- bg-[#50514f] -->
+    <header class=" bg-[#50514f]">
+        <nav class="flex justify-between items-center md:w-[90%] w-screen mx-auto py-6 px-6">
             <div class="">
-                <img class="" src="../assets/Logo.svg" alt="">
+                <!-- <img class="" src="../assets/Logo.svg" alt=""> -->
+                <p class="text-3xl text-[#b4adea] font-semibold">SlimCase</p>
             </div>
             <span @click="toggleMenu()" class="md:hidden">
                 <img src="../assets/hamburger.svg" onclick="" :class="[open ? 'hidden' : 'inline-block']" alt="">
                 <img src="../assets/close.svg" onclick="" :class="[open ? 'inline-block' : 'hidden']" alt="">
             </span>
 
-            <ul class="md:flex md:items-center md:px-0 px-10 md:pb-0 pb-10 md:static absolute md:w-auto w-full top-14 duration-700 ease-in"
+            <ul class=" md:flex md:items-center md:px-0 px-10 md:pb-0 pb-10 md:static absolute md:w-auto w-full top-14 duration-700 ease-in bg-[#50514f] md:bg-none my-6 mr-6"
                 :class="[open ? 'left-0' : 'left-[-100%]']">
-                <li class="md:mx-4 md:my-0 my-6">
+                <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/">My URLs</RouterLink>
                 </li>
-                <li class="md:mx-4 md:my-0 my-6">
+                <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/">Features</RouterLink>
                 </li>
-                <li class="md:mx-4 md:my-0 my-6">
+                <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/pricing">Pricing</RouterLink>
                 </li>
                 <!-- <li class="md:mx-4 md:my-0 my-6">Analytics</li> -->
-                <li class="md:mx-4 md:my-0 my-6">
+                <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/faqs">FAQs</RouterLink>
                 </li>
-                <p>Log in</p>
-                <a href="">Try for free</a>
+                <div class=" flex gap-4 justify-center items-center">
+                    <RouterLink to="/login" class="hover:text-[#b4adea]">Log in</RouterLink>
+                    <RouterLink
+                        class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-4 py-2 rounded-2xl"
+                        to="/signup">Try for
+                        free
+                    </RouterLink>
+                </div>
             </ul>
             <!-- <div class="">
             </div> -->

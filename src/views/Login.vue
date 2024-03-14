@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-start items-center">
+    <div class="flex justify-start items-center bg-[#50514f]">
 
         <div class="w-full h-screen md:w-[50%] py px-10 flex flex-col justify-evenly">
             <div class="">
@@ -15,7 +15,9 @@
             </div>
             <div class="flex flex-col gap-3">
                 <p class="text-3xl">Log in to your account</p>
-                <p class="text-xl">Don't have an account? <span>Sign up</span></p>
+                <p class="text-xl">Don't have an account? <span>
+                        <RouterLink class="text-[#b4adea]" to="/signup">Sign up</RouterLink>
+                    </span></p>
             </div>
             <div class="flex flex-col gap-3">
                 <a href="" class="border border-black rounded text-center p-3">Google</a>
@@ -25,14 +27,14 @@
             <form action="" class="flex flex-col gap-4">
                 <div class="flex flex-col">
                     <label for="email">Email</label>
-                    <input class="p-2 h-10 border border-black" type="email">
+                    <input class="p-2 h-10 border border-white rounded-2xl" type="email">
                 </div>
                 <div class="flex flex-col">
                     <label for="password">Password</label>
-                    <input class="p-2 h-10 border border-black" type=" password">
-                    <p class="text-right">forgot your password?</p>
+                    <input class="rounded-2xl p-2 h-10 border border-white" type=" password">
+                    <p class="text-right hover:text-[#b4adea]">forgot your password?</p>
                 </div>
-                <button class="mt-4 bg-[#005AE2] text-white h-14 rounded-3xl">Log in</button>
+                <button class="mt-4 bg-[#b4adea] text-white h-14 rounded-3xl">Log in</button>
             </form>
             <small class="text-[#A0B1C0]">By signing in with an account, you agree to
                 Scissior's <span class="text-[#5C6F7F]">Terms of Service, Privacy Policy</span> and
