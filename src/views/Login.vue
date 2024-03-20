@@ -20,21 +20,26 @@
                     </span></p>
             </div>
             <div class="flex flex-col gap-3">
-                <a href="" class="border border-black rounded text-center p-3">Google</a>
-                <a href="" class="border border-black rounded text-center p-3">Apple</a>
+                <a href="" @click="signInWithGoogle" class="border border-black rounded text-center p-3">Google</a>
                 <p class=" text-center">or with email and password</p>
             </div>
             <form action="" class="flex flex-col gap-4">
                 <div class="flex flex-col">
                     <label for="email">Email</label>
-                    <input class="p-2 h-10 border border-white rounded-2xl" type="email">
+                    <input v-model="v$.email.$model" class="p-2 h-10 border border-white rounded-2xl" type="email">
+                    <small class="text-red-500" v-if="v$.email.$errors.length">{{
+                    v$.email.$errors[0].$message
+                }}</small>
                 </div>
                 <div class="flex flex-col">
                     <label for="password">Password</label>
-                    <input class="rounded-2xl p-2 h-10 border border-white" type=" password">
+                    <input class="rounded-2xl p-2 h-10 border border-white" type="password"
+                        v-model="v$.password.$model">
+                    <small class="text-red-500 font-medium text-xs" v-if="v$.password.$errors.length">{{
+                    v$.password.$errors[0].$message }}</small>
                     <p class="text-right hover:text-[#b4adea]">forgot your password?</p>
                 </div>
-                <button class="mt-4 bg-[#b4adea] text-white h-14 rounded-3xl">Log in</button>
+                <button @click.prevent="login" class="mt-4 bg-[#b4adea] text-white h-14 rounded-3xl">Log in</button>
             </form>
             <small class="text-[#A0B1C0]">By signing in with an account, you agree to
                 Scissior's <span class="text-[#5C6F7F]">Terms of Service, Privacy Policy</span> and
@@ -49,7 +54,47 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { ref, reactive, computed } from 'vue'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'vue3-toastify';
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
+const router = useRouter()
+const user = reactive({
+    email: "",
+    password: "",
+});
+// const isSubmitting = ref(false);
+
+const userRules = {
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
+};
+
+const v$ = useVuelidate(userRules, user);
+const login = async () => {
+    const isValid = await v$.value.$validate();
+    console.log(isValid)
+    if (!isValid) return;
+    const auth = getAuth()
+    try {
+
+        const response = await signInWithEmailAndPassword(
+            auth,
+            user.email,
+            user.password
+        );
+        if (response.user) {
+            localStorage.setItem('isLoggedIn', 'true')
+            router.push('/dashboard')
+        }
+    } catch (error: any) {
+        toast.error(error.message)
+    }
+}
+const signInWithGoogle = () => { }
 
 </script>
 

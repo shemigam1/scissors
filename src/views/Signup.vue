@@ -14,39 +14,69 @@
                 </svg>
             </div>
             <div class="flex flex-col gap-3 mb-8">
+
                 <p class="text-3xl">Create your account</p>
-                <p class="text-xl">Have an account? <span>Log in now</span></p>
+
+
+                <p class="text-xl">Have an account? <span>
+                        <RouterLink to="/login">Log in now</RouterLink>
+                    </span>
+                </p>
             </div>
+
+
             <div class="flex gap-2 mb-3">
-                <a href="" class="border border-black rounded text-center p-3 w-1/2">Google</a>
-                <a href="" class="border border-black rounded text-center p-3 w-1/2">Apple</a>
+
+                <p @click="signInWithGoogle" class="border border-black rounded text-center p-3 w-full">Google</p>
+                <!-- <a href="" class="border border-black rounded text-center p-3 w-1/2">Apple</a> -->
             </div>
+
             <p class=" text-center">or with email and password</p>
+
             <form action="" class="flex flex-col gap-4">
                 <div class="flex flex-col">
-                    <label for="text">Username</label>
-                    <input class="p-2 h-10 border border-black rounded-lg
+                    <label for="text">Username
+                    </label>
+                    <input v-model="v$.username.$model" class="p-2 h-10 border border-black rounded-lg
                 " type="text">
+                    <small class="text-red-500" v-if="v$.username.$errors.length">{{
+                    v$.userame.$errors[0].$message
+                }}</small>
                 </div>
                 <div class="flex flex-col">
                     <label for="email">Email</label>
-                    <input class="p-2 h-10 border border-black rounded-lg" type="email">
+
+                    <input v-model="v$.email.$model" class="p-2 h-10 border border-black rounded-lg" type="email">
+
+                    <small class="text-red-500" v-if="v$.email.$errors.length">{{
+                    v$.email.$errors[0].$message
+                }}</small>
                 </div>
                 <div class="flex gap-2">
 
                     <div class="flex flex-col w-1/2">
                         <label for="password">Password</label>
-                        <input class="p-2 h-10 border border-black rounded-lg" type=" password">
+                        <input v-model="v$.password.$model" class="p-2 h-10 border border-black rounded-lg"
+                            type=" password">
+                        <small class="text-red-500" v-if="v$.password.$errors.length">{{
+                    v$.password.$errors[0].$message
+                }}</small>
                     </div>
                     <div class="flex flex-col w-1/2">
-                        <label for="password">Retype Password</label>
-                        <input class="p-2 h-10 border border-black rounded-lg" type=" password">
+                        <label for="password">Confirm Password</label>
+                        <input v-model="v$.confirmPassword.$model" class="p-2 h-10 border border-black rounded-lg"
+                            type=" password">
+                        <small class="text-red-500" v-if="v$.confirmPassword.$errors.length">{{
+                    v$.confirmPassword.$errors[0].$message }}</small>
                     </div>
                 </div>
                 <small class="text-left text-[#A0B1C0]">6 or more characters, one number, one uppercase & one
                     lowercase
                     letter</small>
-                <button class="mt-4 bg-[#005AE2] text-white h-14 rounded-3xl">Sign up!</button>
+                <button :class="{ 'cursor-not-allowed': isSubmitting }" :disabled="isSubmitting" type="button"
+                    @click="signup" class="mt-4 bg-[#005AE2] text-white h-14 rounded-3xl">
+                    {{ isSubmitting ? "Signing up..." : "Signup" }}
+                </button>
             </form>
             <small class="text-[#A0B1C0]">By signing in with an account, you agree to
                 Scissior's <span class="text-[#5C6F7F]">Terms of Service, Privacy Policy</span> and
@@ -60,7 +90,58 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { ref, reactive, computed } from 'vue'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'vue3-toastify';
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
+const router = useRouter()
+const user = reactive({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+});
+const isSubmitting = ref(false);
+
+const userRules = {
+    username: { required },
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
+    confirmPassword: {
+        required,
+        minLength: minLength(8),
+        sameAs: sameAs(computed(() => user.password)),
+    },
+};
+
+const v$ = useVuelidate(userRules, user);
+const signup = async () => {
+    const isValid = await v$.value.$validate();
+    console.log(isValid)
+    if (!isValid) return;
+    const auth = getAuth()
+    try {
+        isSubmitting.value = true;
+
+        const response = await createUserWithEmailAndPassword(
+            auth,
+            user.email,
+            user.password
+        );
+        if (response.user) {
+            localStorage.setItem('isLoggedIn', 'true')
+            router.push('/dashboard')
+        }
+    } catch (error: any) {
+        toast.error(error.message)
+    } finally {
+        isSubmitting.value = false;
+    }
+}
+const signInWithGoogle = () => { }
 
 </script>
 
