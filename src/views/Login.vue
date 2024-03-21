@@ -20,7 +20,10 @@
                     </span></p>
             </div>
             <div class="flex flex-col gap-3">
-                <a href="" @click="signInWithGoogle" class="border border-black rounded text-center p-3">Google</a>
+                <p @click="signInWithGoogle"
+                    class="hover:cursor-pointer border border-black rounded text-center p-3 w-full flex justify-center items-center gap-3">
+                    <Google /> Google
+                </p>
                 <p class=" text-center">or with email and password</p>
             </div>
             <form action="" class="flex flex-col gap-4">
@@ -61,6 +64,7 @@ import { toast } from 'vue3-toastify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, sameAs } from "@vuelidate/validators";
 import { auth } from '../utils/firebase';
+import Google from '../components/svg-components/Google.vue';
 
 const router = useRouter()
 const user = reactive({

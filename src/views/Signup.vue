@@ -27,7 +27,10 @@
 
             <div class="flex gap-2 mb-3">
 
-                <p @click="signInWithGoogle" class="border border-black rounded text-center p-3 w-full">Google</p>
+                <p @click="signInWithGoogle"
+                    class="border border-black rounded hover:cursor-pointer text-center p-3 w-full flex justify-center items-center gap-3">
+                    <Google /> Google
+                </p>
                 <!-- <a href="" class="border border-black rounded text-center p-3 w-1/2">Apple</a> -->
             </div>
 
@@ -97,6 +100,7 @@ import { auth } from '../utils/firebase';
 import { toast } from 'vue3-toastify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import Google from '../components/svg-components/Google.vue';
 
 const router = useRouter()
 const user = reactive({
