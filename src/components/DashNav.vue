@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase'
 
@@ -54,6 +54,21 @@ const toggleMenu = () => {
 }
 
 const username = ref(auth.currentUser?.email)
+
+onMounted(() => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // User is signed in.
+            username.value = user.email;
+            // localStorage.setItem('username', username.value);
+        } else {
+            // No user is signed in.
+            username.value = '';
+            // localStorage.removeItem('username');
+            router.push('/login'); // Redirect to login page if not logged in
+        }
+    });
+});
 
 const logout = () => {
     signOut(auth)

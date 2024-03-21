@@ -57,7 +57,7 @@
                     <div class="flex flex-col w-1/2">
                         <label for="password">Password</label>
                         <input v-model="v$.password.$model" class="p-2 h-10 border border-black rounded-lg"
-                            type=" password">
+                            type="password">
                         <small class="text-red-500" v-if="v$.password.$errors.length">{{
                     v$.password.$errors[0].$message
                 }}</small>
@@ -65,7 +65,7 @@
                     <div class="flex flex-col w-1/2">
                         <label for="password">Confirm Password</label>
                         <input v-model="v$.confirmPassword.$model" class="p-2 h-10 border border-black rounded-lg"
-                            type=" password">
+                            type="password">
                         <small class="text-red-500" v-if="v$.confirmPassword.$errors.length">{{
                     v$.confirmPassword.$errors[0].$message }}</small>
                     </div>
@@ -92,7 +92,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref, reactive, computed } from 'vue'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 import { toast } from 'vue3-toastify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, sameAs } from "@vuelidate/validators";
@@ -141,7 +142,21 @@ const signup = async () => {
         isSubmitting.value = false;
     }
 }
-const signInWithGoogle = () => { }
+
+const provider = new GoogleAuthProvider()
+const signInWithGoogle = async () => {
+    try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        // console.log(user);
+        if (user) {
+            router.push("/dashboard")
+        }
+    } catch (error) {
+        // console.error('Error loggin:', error);
+        toast.error('Failed to login with google. Try again.');
+    }
+}
 
 </script>
 

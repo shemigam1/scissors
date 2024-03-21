@@ -56,10 +56,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref, reactive, computed } from 'vue'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { toast } from 'vue3-toastify';
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import { auth } from '../utils/firebase';
 
 const router = useRouter()
 const user = reactive({
@@ -94,7 +95,22 @@ const login = async () => {
         toast.error(error.message)
     }
 }
-const signInWithGoogle = () => { }
+
+const provider = new GoogleAuthProvider()
+
+const signInWithGoogle = async () => {
+    try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        // console.log(user);
+        if (user) {
+            router.push("/dashboard")
+        }
+    } catch (error) {
+        // console.error('Error loggin:', error);
+        toast.error('Failed to login with google. Try again.');
+    }
+}
 
 </script>
 

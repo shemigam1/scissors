@@ -4,6 +4,7 @@ import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
 import Pricing from '../views/Pricing.vue'
 import Dashboard from '../views/Dashoard.vue'
+import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,7 +38,8 @@ const router = createRouter({
       name: 'dashboard',
       component: Dashboard,
       meta: { requiresAuth: true }
-    }
+    },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 
   ]
 })

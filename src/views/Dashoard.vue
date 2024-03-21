@@ -1,25 +1,52 @@
 <template>
-    <DashNav />
-    <div class="">
-        <section class="h-[40%] flex justify-center items-center py-4 bg-[#b4adea]">
-            <Shortener />
-        </section>
+    <div class="h-screen bg-[#50514f]">
 
-        <section v-if="userLinks" class="flex flex-col justify-center items-center gap-4 py-6 bg-[#50514f]">
-            <div class="w-[90%] md:w-[75%] border border-whilte p-4 flex flex-col gap-4" v-for="link in userLinks"
-                :key="link.userId">
-                <p class="text-2xl text-white" v-if="link.name">{{ link.name }}</p>
-                <p class="text-2xl text-white" v-else>No title</p>
-                <a class="text-[#b4adea] hover:text-white" :href="link.shortenedLink" target="_blank">{{
-            link.shortenedLink }}</a>
-            </div>
-        </section>
+        <DashNav />
+        <div class="">
+            <section class="h-[40%] flex justify-center items-center py-4 bg-[#b4adea]">
+                <Shortener />
+            </section>
 
-        <section v-else>
-            <div class="">
-                <p>No Links yet!</p>
-            </div>
-        </section>
+            <section v-if="userLinks" class="flex flex-col justify-center items-center gap-4 py-6 bg-[#50514f]">
+                <div class="w-[90%] md:w-[75%] border border-whilte p-4 flex justify-between items-center"
+                    v-for="link in userLinks" :key="link.userId">
+                    <div class="flex flex-col items-start justify-center gap-4">
+
+                        <p class="text-2xl text-white" v-if="link.name">{{ link.name }}</p>
+                        <p class="text-2xl text-white" v-else>No title</p>
+                        <a class="flex gap-3 justify-between text-[#b4adea] hover:text-white" :href="link.shortenedLink"
+                            target="_blank">{{
+                link.shortenedLink }} <span @click="copyToClipboard(link.shortenedLink)"
+                                class="p-1 bg-black text-white hover:cursor-pointer rounded">Copy link</span></a>
+                    </div>
+                    <div class=" flex justify-items-end">
+                        <QRCodeVue3 :width="150" :height="150" :value="link.shortenedLink"
+                            :qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
+                            :imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }" :dotsOptions="{
+                type: 'square',
+                color: '#ffffff',
+                gradient: {
+                    type: 'linear',
+                    rotation: 0,
+                    colorStops: [
+                        { offset: 0, color: '#ffffff' },
+                        { offset: 1, color: '#ffffff' }
+                    ]
+                }
+            }" :backgroundOptions="{ color: '#000000' }" :cornersSquareOptions="{ type: 'square', color: '#ffffff' }"
+                            :cornersDotOptions="{ type: undefined, color: '#ffffff' }" fileExt="png" :download="true"
+                            myclass="my-qur" imgclass="img-qr" downloadButton="my-button"
+                            :downloadOptions="{ name: 'vqr', extension: 'svg' }" class="ml-9" />
+                    </div>
+                </div>
+            </section>
+
+            <section v-else>
+                <div class="">
+                    <p>No Links yet!</p>
+                </div>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -61,23 +88,37 @@ const router = useRouter();
 // onMounted(() => {
 //     // getLinks()
 // })
+const copyToClipboard = async (text: any) => {
+    try {
+        await navigator.clipboard.writeText(text)
+        toast.success('Copied to clipboard!')
+    } catch (error) {
+        toast.error('Failed to copy!')
+        console.error('Copy to clipboard failed:', error)
+    }
+}
 
 
 const userLinks: any = ref([]);
 
-onMounted(() => {
-    const userId = auth.currentUser?.uid;
-    if (!userId) return; // Exit early if user is not logged in
+
+const userId = auth.currentUser?.uid;
+if (!userId) {
+    router.push('/login')
+    // Exit early if user is not logged in
+} else {
+
 
     const q = query(collection(db, 'links'), where('userId', '==', userId));
 
     onSnapshot(q, (snapshot) => {
         userLinks.value = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
     });
+}
 
-    // Clean up the listener when the component is unmounted
-    // onUnmounted(unsubscribe);
-});
+// Clean up the listener when the component is unmounted
+// onUnmounted(unsubscribe);
+
 
 // 
 </script>

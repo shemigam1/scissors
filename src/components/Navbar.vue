@@ -28,7 +28,7 @@
                 </li>
                 <div class=" flex gap-4 justify-center items-center">
                     <p @click="handleLogin" class="hover:text-[#b4adea] hover:cursor-pointer">Log in</p>
-                    <p class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-4 py-2 rounded-2xl"
+                    <p class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] hover:cursor-pointer text-xl font-semibold px-4 py-2 rounded-2xl"
                         @click="handleSignup">Try for
                         free
                     </p>
