@@ -27,12 +27,10 @@
                     <RouterLink to="/faqs">FAQs</RouterLink>
                 </li>
                 <div class=" flex gap-4 justify-center items-center">
-                    <RouterLink to="/login" class="hover:text-[#b4adea]">Log in</RouterLink>
-                    <RouterLink
-                        class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-4 py-2 rounded-2xl"
-                        to="/signup">Try for
-                        free
-                    </RouterLink>
+                    <p to="/login" class="hover:text-[#b4adea]">{{ username }}</p>
+                    <a class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-3 py-1 rounded-xl hover:cursor-pointer"
+                        to="/signup">Log out
+                    </a>
                 </div>
             </ul>
             <!-- <div class="">
@@ -48,5 +46,7 @@ let open = ref(false)
 const toggleMenu = () => {
     open.value = !open.value
 }
+
+const username = ref('semilore')
 
 </script>

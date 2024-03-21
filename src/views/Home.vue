@@ -2,7 +2,7 @@
     <div class="w-screen overflow-x-hidden bg-[#50514f]">
         <Navbar />
         <div class="flex flex-col mt-5 justify-center">
-            <section class="w-[90%] md:w-[60%] flex flex-col items-center justify-center gap-5 mx-auto">
+            <section class="w-[90%] md:w-[60%] flex flex-col items-center justify-center gap-5 mx-auto pb-7">
                 <p class="text-pretty md:text-center text-5xl font-bold">Optimixe your Online Experience With
                     Our Advanced <span class="text-[#b4adea]">URL
                         Shortening</span>
@@ -14,15 +14,15 @@
                     Utilize custom slugs, branded
                     links, and domain customization options to reinforce your brand presence and enhance user
                     engagement.</p>
-                <div class="">
+                <div class="flex gap-3 justify-center items-center">
                     <RouterLink to="/signup">Sign Up</RouterLink>
-                    <RouterLink to="/pricing">Learn More</RouterLink>
+                    <RouterLink to="/pricing" class="p-3 bg-[#b4adea] rounded-xl">Learn More</RouterLink>
                 </div>
 
             </section>
 
             <section
-                class="circuit mt-5 w-[100%] justify-evenly items-center md:flex-row flex flex-col gap-5 mx-auto py-10">
+                class="circuit pt-5 w-[100%] justify-evenly items-center md:flex-row flex flex-col gap-5 mx-auto py-10">
                 <p class=" text-2xl text-left">One Stop. Four Possibilities</p>
                 <ul class="flex flex-col md:flex-row gap-10">
                     <li class="flex md:flex-col gap-4"><span class=" text-2xl">3M</span><span>Active Users</span></li>
@@ -36,12 +36,8 @@
                 </ul>
             </section>
 
-            <section class="flex justify-center items-center mt-6 h-60 bg-[#50514f] w-screen">
-                <div
-                    class="md:w-[40%] flex justify-center items-center w-[80%] h-[60%] text-[#50514f] flex-col gap-5 bg-white">
-                    <input class="border border-black w-[85%]" type="text">
-                    <button>Trim Url</button>
-                </div>
+            <section class="flex justify-center items-center py-10 h-96 bg-[#b4adea] w-screen">
+                <Shortener />
             </section>
         </div>
     </div>
@@ -49,6 +45,7 @@
 
 <script setup lang="ts">
 import Navbar from '../components/Navbar.vue'
+import Shortener from '../components/Shortener.vue';
 
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <Navbar />
-        <div class="flex flex-col justify-center items-center my-16">
+        <div class="flex flex-col justify-center items-center py-16 bg-[#b4adea]">
             <div class="md:w-[50%] flex flex-col justify-center items-center">
                 <p class="text-4xl font-semibold text-center">A Perfect Price for all your needs</p>
                 <p class=" text-pretty text-lg px-4">From catering for your personal, business, event, social
