@@ -58,11 +58,11 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { ref, reactive, computed } from 'vue'
+import {  reactive } from 'vue'
 import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { toast } from 'vue3-toastify';
 import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import { required, email, minLength } from "@vuelidate/validators";
 import { auth } from '../utils/firebase';
 import Google from '../components/svg-components/Google.vue';
 

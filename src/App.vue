@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useUserStore } from './stores/user';
+// import { useUserStore } from './stores/user';
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 const auth = getAuth()
 
 onAuthStateChanged(auth, (user) => {

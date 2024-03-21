@@ -20,14 +20,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onMounted, reactive } from 'vue';
-import axios, { type AxiosError } from 'axios';
+import axios from 'axios';
 import { toast } from 'vue3-toastify';
 import { token } from '../utils/tinyurl';
-import { getDatabase, ref as dbRef, push, set, serverTimestamp } from 'firebase/database';
-import { auth, db, linksRef } from '../utils/firebase';
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
+// import { getDatabase, ref as dbRef, push, set, serverTimestamp } from 'firebase/database';
+import { auth, linksRef } from '../utils/firebase';
+import { addDoc } from 'firebase/firestore';
 
-let shortUrl = ref("")
+// let shortUrl = ref("")
 let urlData = reactive({
     longUrl: "",
     alias: "",
@@ -54,7 +54,7 @@ const shorten = async () => {
     }
 
     try {
-        const url = `https://api.tinyurl.com/create`
+        // const url = `https://api.tinyurl.com/create`
 
         const reqBody = {
             url: urlData.longUrl,

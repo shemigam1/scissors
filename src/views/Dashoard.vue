@@ -56,13 +56,13 @@ import Shortener from '../components/Shortener.vue';
 import { toast } from 'vue3-toastify'
 import QRCodeVue3 from 'qrcode-vue3';
 import { useRouter } from 'vue-router'
-import { db, auth, linksRef } from '../utils/firebase';
+import { db, auth } from '../utils/firebase';
 import {
     onSnapshot, collection,
-    addDoc, deleteDoc, doc,
+    // addDoc, deleteDoc, doc,
     query, where
 } from 'firebase/firestore'
-import { onMounted, reactive, ref } from 'vue';
+import { ref } from 'vue';
 
 const router = useRouter();
 

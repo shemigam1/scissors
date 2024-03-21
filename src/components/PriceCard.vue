@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import Checkcircle from '../components/svg-components/Checkcircle.vue'
-const basic = ['Unlimited URL Shortening', 'Basic Link Ananlysis', 'Customizable Short Links', 'Standard Support', 'Ad-supported']
+// const basic = ['Unlimited URL Shortening', 'Basic Link Ananlysis', 'Customizable Short Links', 'Standard Support', 'Ad-supported']
 </script>
 
 <style scoped></style>

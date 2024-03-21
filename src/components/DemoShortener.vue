@@ -19,12 +19,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { onMounted, reactive } from 'vue';
-import axios, { type AxiosError } from 'axios';
+import {  reactive } from 'vue';
+import axios from 'axios';
 import { toast } from 'vue3-toastify';
 import { token } from '../utils/tinyurl';
 
-let shortUrl = ref("")
+// let shortUrl = ref("")
 let urlData = reactive({
     longUrl: "",
     alias: "",
@@ -49,7 +49,7 @@ const shorten = async () => {
     }
 
     try {
-        const url = `https://api.tinyurl.com/create`
+        // const url = `https://api.tinyurl.com/create`
 
         const reqBody = {
             url: urlData.longUrl,

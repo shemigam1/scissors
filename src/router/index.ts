@@ -51,6 +51,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+  from
   const isLoggedIn = !!localStorage.getItem("isLoggedIn");
 
   if (to.matched.some((item) => item.meta.requiresAuth)) {

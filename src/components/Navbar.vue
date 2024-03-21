@@ -45,7 +45,7 @@ import { RouterLink } from 'vue-router'
 import { useRouter } from 'vue-router';
 import { ref } from 'vue'
 
-const isLoggedIn = ref(false)
+// const isLoggedIn = ref(false)
 const router = useRouter();
 
 let open = ref(false)
@@ -61,6 +61,8 @@ const handleLogin = () => {
 };
 
 router.beforeEach((to, from, next) => {
+    to
+    from
     open.value = false;
     next();
 })
