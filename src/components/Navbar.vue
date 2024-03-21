@@ -27,12 +27,11 @@
                     <RouterLink to="/faqs">FAQs</RouterLink>
                 </li>
                 <div class=" flex gap-4 justify-center items-center">
-                    <RouterLink to="/login" class="hover:text-[#b4adea]">Log in</RouterLink>
-                    <RouterLink
-                        class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-4 py-2 rounded-2xl"
-                        to="/signup">Try for
+                    <p @click="handleLogin" class="hover:text-[#b4adea] hover:cursor-pointer">Log in</p>
+                    <p class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-4 py-2 rounded-2xl"
+                        @click="handleSignup">Try for
                         free
-                    </RouterLink>
+                    </p>
                 </div>
             </ul>
             <!-- <div class="">
@@ -43,10 +42,27 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router';
 import { ref } from 'vue'
+
+const isLoggedIn = ref(false)
+const router = useRouter();
+
 let open = ref(false)
 const toggleMenu = () => {
     open.value = !open.value
 }
+
+const handleSignup = () => {
+    router.push('/signup')
+};
+const handleLogin = () => {
+    router.push('/login')
+};
+
+router.beforeEach((to, from, next) => {
+    open.value = false;
+    next();
+})
 
 </script>

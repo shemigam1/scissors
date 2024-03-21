@@ -28,7 +28,8 @@
                 </li>
                 <div class=" flex gap-4 justify-center items-center">
                     <p to="/login" class="hover:text-[#b4adea]">{{ username }}</p>
-                    <a class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-3 py-1 rounded-xl hover:cursor-pointer"
+                    <a @click="logout"
+                        class="bg-[#b4adea] hover:text-[#b4adea] hover:bg-[#50514f] text-xl font-semibold px-3 py-1 rounded-xl hover:cursor-pointer"
                         to="/signup">Log out
                     </a>
                 </div>
@@ -41,12 +42,28 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router';
 import { ref } from 'vue'
+import { signOut } from 'firebase/auth';
+import { auth } from '../utils/firebase'
+
+const router = useRouter()
 let open = ref(false)
 const toggleMenu = () => {
     open.value = !open.value
 }
 
-const username = ref('semilore')
+const username = ref(auth.currentUser?.email)
+
+const logout = () => {
+    signOut(auth)
+        .then(() => {
+            localStorage.clear();
+            router.push("/")
+        })
+        .catch(err => {
+            console.log(err.message)
+        })
+}
 
 </script>

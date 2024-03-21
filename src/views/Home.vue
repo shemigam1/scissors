@@ -37,7 +37,7 @@
             </section>
 
             <section class="flex justify-center items-center py-10 h-96 bg-[#b4adea] w-screen">
-                <Shortener />
+                <DemoShortener />
             </section>
         </div>
     </div>
@@ -45,8 +45,9 @@
 
 <script setup lang="ts">
 import Navbar from '../components/Navbar.vue'
-import Shortener from '../components/Shortener.vue';
+import DemoShortener from '../components/DemoShortener.vue';
 
+// localStorage.setItem('isLoggedIn', 'false')
 </script>
 
 <style scoped>
