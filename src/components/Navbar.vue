@@ -14,11 +14,11 @@
             <ul class=" md:flex md:items-center md:px-0 px-10 md:pb-0 pb-10 md:static absolute md:w-auto w-full top-14 duration-700 ease-in bg-[#50514f] md:bg-none my-6 mr-6"
                 :class="[open ? 'left-0' : 'left-[-100%]']">
                 <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
-                    <RouterLink to="/">My URLs</RouterLink>
+                    <RouterLink to="/dashboard">My URLs</RouterLink>
                 </li>
-                <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
+                <!-- <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/">Features</RouterLink>
-                </li>
+                </li> -->
                 <li class="md:mx-4 md:my-0 my-6 hover:text-[#b4adea]">
                     <RouterLink to="/pricing">Pricing</RouterLink>
                 </li>

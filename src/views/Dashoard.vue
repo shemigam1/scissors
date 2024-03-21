@@ -8,7 +8,7 @@
             </section>
 
             <section v-if="userLinks" class="flex flex-col justify-center items-center gap-4 py-6 bg-[#50514f]">
-                <div class="w-[90%] md:w-[75%] border border-whilte p-4 flex justify-between items-center"
+                <div class="w-[90%] md:w-[75%] border border-whilte p-4 flex flex-col md:flex-row justify-between items-center"
                     v-for="link in userLinks" :key="link.userId">
                     <div class="flex flex-col items-start justify-center gap-4">
 

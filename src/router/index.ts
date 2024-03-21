@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Pricing from '../views/Pricing.vue'
 import Dashboard from '../views/Dashoard.vue'
 import NotFound from '../views/NotFound.vue'
+import Faq from '../components/Faq.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/faqs',
+      name: 'faqs',
+      component: Faq
     },
     {
       path: '/dashboard',
